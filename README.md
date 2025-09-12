@@ -1,3 +1,56 @@
+# Proof of Concept – Performance Review Module Infrastructure
+
+We’ll build this module as a **new service**, starting from a blank slate. This will let us use modern patterns, ensure scalability, and avoid being tied down by the existing app’s structure.
+
+## Two Possible Approaches
+
+### Option 1 – Multiple Microservices
+
+Independent microservices that talk to each other through REST APIs or a message queue.
+
+### Option 2 – Modular Monolith
+
+A single service with a “microservice-like” structure: each module is independent (controllers, models, logic separated), but everything lives in one codebase.
+
+## Recommended Tech Stack (for both options)
+
+- **Backend:** C# .NET Core
+- **Real-time updates:** SignalR
+- **Messaging/decoupling:** Azure Service Bus (Message Queue)
+- **Database:** PostgreSQL or MongoDB (depending on reporting needs)
+- **Hosting:** Azure App Service or Containers (scales with demand) (or on the vm that we already use I think)
+
+## Suggested Path 
+
+For the **proof of concept**, start with **Option 2 (Modular Monolith)**. It’s faster, cheaper, and easier to deliver. If adoption grows and requirements expand, we can gradually split modules into separate microservices (Option 1).
+
+
+I’ll start developing my view based on **Option 2** from Marc’s services division.
+
+In this approach, I would divide the solution into multiple independent projects that can still communicate with each other through REST APIs. Each project would have its own controllers and logic, without directly referencing the others. For example, everything related to **Delivery** would have its own implementation, while **Performance Management** would have its own models and features and so on. They would interact like microservices, but remain within the same solution.
+
+The advantage of this approach is that it lowers the cost and complexity of managing multiple standalone microservices, while allowing faster delivery of a working project. With pure microservices, each service must be deployed, monitored, and maintained independently, which adds setup and development overhead.
+
+With this modular monolith approach, all of Marc’s proposed logic is still fully implemented, but within a single codebase—giving us both speed and simplicity. And as mentioned earlier, if a particular module later becomes a bottleneck, we can always separate it into its own dedicated microservice.
+
+I chose this path because we’re working under **time and cost constraints**, and I believe this option gives us the best balance of scalability and efficiency.
+
+
+
+
+# -----------------
+# IGNORER LE RESTE
+# -----------------
+# -----------------
+# -----------------
+# -----------------
+# -----------------
+# -----------------
+# -----------------
+# -----------------
+# -----------------
+# -----------------
+
 # C# .NET Core Best Practices Guide
 
 This guide provides best practices and recommendations for building maintainable, scalable, and clean C# .NET Core applications, including guidelines for naming conventions, file structure, project organization, business logic, and working with MongoDB.
